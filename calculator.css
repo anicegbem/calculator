@@ -7,10 +7,12 @@ html {
 }
 
 .container {
-    /* border: 1px solid black; */
+    /* border: 1px solid black; 
     margin: 0 auto;
+    height: 10em;
+    width: 25%; */
 }
 
 #results {
-    height: 1em;
+    height: 2em;
 }

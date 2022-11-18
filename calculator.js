@@ -1,6 +1,10 @@
 let numbers = document.getElementsByClassName('number');
 let array = Array.from(numbers);
-let result = document.getElementById('results')
+let result = document.getElementById('results');
+// result.textContent = "0"
+result.innerHTML = "0";
+// let a = "";
+// result.textContent = "0";
 
 function addNumbers(a, b) {
     return a + b;
@@ -25,12 +29,24 @@ function operate(operator, a, b) {
 function getNumbers() {
     array.forEach(number => 
         number.addEventListener('click', function getValue(){
-            result.innerHTML = number.innerHTML;
+            if(result.innerHTML === "0") {
+                result.innerHTML = number.innerHTML;
+                
 
+            }
+            else if(result.innerHTML !== "0") {
+                result.innerHTML += number.innerHTML;
+            }
+            
+
+            
         })
     );
+
+    // a = result.innerHTML;
 }
 
 getNumbers();
+// console.log(a);
 
 // console.log(operate(multiplyNumbers, 5, 2));

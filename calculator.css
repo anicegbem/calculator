@@ -13,7 +13,12 @@ html {
     width: 25%; */
 }
 
-#results {
+#display {
     height: 2em;
     
+}
+
+#up {
+    font-size: smaller;
+    /* margin-bottom: 0.5em; */
 }

@@ -10,37 +10,48 @@ let arrayOperators = Array.from(operators);
 let b = "";
 let equals = document.getElementById('equals');
 let up = document.getElementById('up');
-let value = "";
+let values = "";
+let display = document.getElementById('display');
 // result.textContent = "0";
 
-function addNumbers(...a) {
-    // use rest parameters, and then use the reduce() method to compute
-    // return a + b;
-    let items = [...a];
-    return items.reduce((a, b) => a + b, 0);
+function addNumbers(a, b) {
+    let value = b.split(' ');
+    let number = value[0]
+    let digit = a;
+    let one = Number(digit);
+    let two = Number(number);
+    // the problem stems from here, where 'a' is being equated to 'b'
+    return one + two;
     
 }
 
-function subtractNumbers(...a) {
-    let items = [...a];
-    return items.reduce((a, b) => a - b);
+function subtractNumbers(a, b) {
+    return parseInt(a) - parseInt(b);
     // return a - b;
 }
 
-function multiplyNumbers(...a) {
-    let items = [...a];
-    return items.reduce((a, b) => a * b);
+function multiplyNumbers(a, b) {
+    return parseInt(a) * parseInt(b)
     // return a * b;
 }
 
-function divideNumbers(...a) {
-    let items = [...a];
-    return items.reduce((a, b) => a / b);
+function divideNumbers(a, b) {
+    return parseInt(a) / parseInt(b)
+    
     // return a / b;
 }
 
-function operate(operator, ...a) {
-    return operator(...a);
+function operate(a, b) {
+    equals.addEventListener('click', function () {
+        let value = b.split(' ');
+        let first = value[1];
+        if(first === '+') {
+            result.innerHTML = addNumbers(a, b);
+            up.innerHTML = "";
+
+
+        }
+    })
 }
 
 function getNumbers() {
@@ -56,6 +67,8 @@ function getNumbers() {
             }
 
             a = result.innerHTML;
+            computeValues();
+            operate(a, b);
 
             
             
@@ -77,7 +90,10 @@ function clearDisplay() {
     clear.addEventListener('click', function removeValues() {
         result.innerHTML = "0";
         up.innerHTML = "";
-        value = "";
+        values = "";
+        a = "0";
+        b = "";
+        // display.innerHTML = "0";
     })
 
 }
@@ -98,22 +114,19 @@ function computeValues() {
 
             // }
             // attach the first number plus the operator to the div above 
-            
+            operate(a, b);
             up.innerHTML = b;
+            
+            
 
         })
     )
+    
     replaceResults();
     
 
 }
 
-function getSolution(operator, a) {
-    equals.addEventListener('click', function getEqual() {
-        result.innerHTML = operate(operator, ...a);
-    })
-
-}
 
 function replaceResults() {
     // change the value of 'a' after an operator has been selected
@@ -122,7 +135,7 @@ function replaceResults() {
             array.forEach(number => number.addEventListener('click', function(){
                 /*let bArray = [...b];
                 let first = String(bArray[0]);*/
-                value += number.innerHTML;
+                values += number.innerHTML;
                  
                 
                 
@@ -143,8 +156,10 @@ function replaceResults() {
 
             }))
             // set value first to empty to prevent it from displaying on screen after clearing
-            value = "";
-            result.innerHTML = value;
+            values = "";
+            result.innerHTML = values;
+            
+            
             
             
 
@@ -153,7 +168,7 @@ function replaceResults() {
         
        
     )
-
+    
     clearDisplay();
     
     
@@ -173,10 +188,18 @@ function calcValues() {
     replaceResults();
     computeValues();
     
+    
+    
+    
 
 }
+// addNumbers(a, b);
+
 
 calcValues();
+
+
+
 
 // console.log(a);
 

@@ -12,33 +12,54 @@ let equals = document.getElementById('equals');
 let up = document.getElementById('up');
 let values = "";
 let display = document.getElementById('display');
+let solution = "";
 // result.textContent = "0";
 
 function addNumbers(a, b) {
+    let value = b.split(' ');
+    let number = value[0];
+    let digit = a;
+    let one = Number(digit);
+    let two = Number(number);
+    let total = one + two;
+    // the idea is to use the result of the operation to form 'b' as opposed to 
+    // using 'a' to form 'b'
+    // addValue(total);
+    return total;
+    
+}
+
+function subtractNumbers(a, b) {
     let value = b.split(' ');
     let number = value[0]
     let digit = a;
     let one = Number(digit);
     let two = Number(number);
-    // the problem stems from here, where 'a' is being equated to 'b'
-    return one + two;
+    return (two - one);
     
-}
-
-function subtractNumbers(a, b) {
-    return parseInt(a) - parseInt(b);
-    // return a - b;
 }
 
 function multiplyNumbers(a, b) {
-    return parseInt(a) * parseInt(b)
-    // return a * b;
+    let value = b.split(' ');
+    let number = value[0]
+    let digit = a;
+    let one = Number(digit);
+    let two = Number(number);
+    return (one * two);
 }
 
 function divideNumbers(a, b) {
-    return parseInt(a) / parseInt(b)
+    let value = b.split(' ');
+    let number = value[0]
+    let digit = a;
+    let one = Number(digit);
+    let two = Number(number);
+    if (one === 0) {
+        return "Cannot divide by zero"
+    }
+    return (two / one);
     
-    // return a / b;
+    
 }
 
 function operate(a, b) {
@@ -47,11 +68,45 @@ function operate(a, b) {
         let first = value[1];
         if(first === '+') {
             result.innerHTML = addNumbers(a, b);
+            // a = result.innerHTML;
             up.innerHTML = "";
+            // addValue(result.innerHTML);
+            
 
 
         }
+        if(first === '-') {
+            result.innerHTML = subtractNumbers(a, b);
+            up.innerHTML = "";
+
+        }
+
+        if(first === 'x') {
+            result.innerHTML = multiplyNumbers(a, b);
+            up.innerHTML = "";
+
+        }
+
+        if(first === '/') {
+            result.innerHTML = divideNumbers(a, b);
+            up.innerHTML = "";
+
+        }
+        // we created a variable - 'solution' and set the value to the result.innerHTML
+        solution = result.innerHTML;
+        b = solution + " " + first + " ";
+        
+        
     })
+    
+    
+    
+
+    
+    
+    
+    
+    
 }
 
 function getNumbers() {
@@ -69,6 +124,7 @@ function getNumbers() {
             a = result.innerHTML;
             computeValues();
             operate(a, b);
+            
 
             
             
@@ -93,6 +149,7 @@ function clearDisplay() {
         values = "";
         a = "0";
         b = "";
+        solution = "";
         // display.innerHTML = "0";
     })
 
@@ -101,7 +158,18 @@ function clearDisplay() {
 function computeValues() {
     arrayOperators.forEach(operator => 
         operator.addEventListener('click', function getOperator() {
-            b = a + " " + operator.innerHTML + " ";
+            // a = result.innerHTML;
+            if(solution === "") {
+                b = a + " " + operator.innerHTML + " ";
+
+            }
+            else if (solution !== "") {
+                b = solution + " " + operator.innerHTML + " ";
+                
+            }
+            
+            
+            
             // array.forEach(number => 
             //     number.addEventListener('click', function getSecondValue(){
             //         result.innerHTML = number.innerHTML;
@@ -121,7 +189,7 @@ function computeValues() {
 
         })
     )
-    
+
     replaceResults();
     
 
@@ -136,6 +204,7 @@ function replaceResults() {
                 /*let bArray = [...b];
                 let first = String(bArray[0]);*/
                 values += number.innerHTML;
+                // b += " " + values + " " + "=";
                  
                 
                 
@@ -169,7 +238,7 @@ function replaceResults() {
        
     )
     
-    clearDisplay();
+    // clearDisplay();
     
     
     
@@ -192,6 +261,19 @@ function calcValues() {
     
     
 
+}
+
+function addValue(total) {
+    equals.addEventListener('click', function(){
+        arrayOperators.forEach(operator => 
+            operator.addEventListener('click', function() {
+                b = total + " " + operator.innerHTML;
+                up.innerHTML = b;
+            })
+        )
+        
+    })
+    
 }
 // addNumbers(a, b);
 

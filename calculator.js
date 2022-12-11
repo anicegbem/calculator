@@ -12,7 +12,10 @@ let b = "";
 let up = document.getElementById('up');
 let values = "";
 let display = document.getElementById('display');
-let solution = "";
+let decimal = document.getElementById('decimal');
+let remove = document.getElementById('delete');
+
+// let solution = "";
 // let total = "";
 
 // result.textContent = "0";
@@ -45,7 +48,7 @@ function subtractNumbers(a, b) {
     let value = b.split(' ');
     // console.log("valueArray: " + value);
     let number = value[0];
-    console.log("number: " + number);
+    // console.log("number: " + number);
     // console.log(number);
     // console.log("a: " + a);
     // console.log("b: " + number);
@@ -101,9 +104,11 @@ function getNumbers() {
             else if(result.innerHTML !== "0") {
                 result.innerHTML += number.innerHTML;
             }
-
+            addDecimal();
             a = result.innerHTML;
+            removeValue();
             computeValues();
+            
             // operate(a, b);
             // operateTwo(a, b);
             
@@ -134,6 +139,7 @@ function clearDisplay() {
         a = "";
         b = "";
         solution = "";
+        // decimal.disabled = false;
         // display.innerHTML = "0";
     })
 
@@ -308,6 +314,7 @@ function computeValues() {
 
     replaceResults();
     clearDisplay();
+    removeValue();
     
 
 }
@@ -365,6 +372,7 @@ function replaceResults() {
         
        
     )
+
     
     
     // clearDisplay();
@@ -391,6 +399,28 @@ function calcValues() {
     
     
 
+}
+
+function addDecimal() {
+    decimal.addEventListener('click', function() {
+        let row = Array.from(result.innerHTML);
+        if(!row.includes(decimal.innerHTML)) {
+            result.innerHTML += decimal.innerHTML;
+
+        }
+        
+        
+    })
+
+}
+
+function removeValue() {
+    remove.addEventListener('click', function() {
+        let row = Array.from(result.innerHTML);
+        let index = row.length - 1;
+        // console.log(row);
+        row.slice(index);
+    })
 }
 
 // function operateTwo(a, b) {

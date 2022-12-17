@@ -4,7 +4,7 @@ let result = document.getElementById('results');
 let clear = document.getElementById('clear');
 // result.textContent = "0"
 result.innerHTML = "0";
-let a = "";
+let a = "0";
 let operators = document.getElementsByClassName('operator');
 let arrayOperators = Array.from(operators);
 let b = "";
@@ -14,6 +14,9 @@ let values = "";
 let display = document.getElementById('display');
 let decimal = document.getElementById('decimal');
 let remove = document.getElementById('delete');
+let warning = "Cannot divide by zero";
+let solution = "";
+
 
 // let solution = "";
 // let total = "";
@@ -22,31 +25,18 @@ let remove = document.getElementById('delete');
 
 function addNumbers(a, b) {
     let value = b.split(' ');
-    // console.log("valueArray: " + value);
     let number = value[0];
-    /* From what i can infer the 'number' returned here, and subsequently
-    converted to a Number, is an empty string. That seems to be the reason for
-    the earlier diagnosed issue */
-    // console.log("number: " + number);
     let digit = a;
-    // let number = b;
+    // console.log(digit);
     let one = Number(digit);
     let two = Number(number);
-    // console.log("b: " + number);
-    // console.log("a: " + digit)
-    // console.log("one(a): " + one);
-    // console.log("two(b): " + two)
     let total = one + two;
-    // the idea is to use the result of the operation to form 'b' as opposed to 
-    // using 'a' to form 'b'
-    // addValue(total);
     return total;
     
 }
 
 function subtractNumbers(a, b) {
     let value = b.split(' ');
-    // console.log("valueArray: " + value);
     let number = value[0];
     // console.log("number: " + number);
     // console.log(number);
@@ -55,11 +45,6 @@ function subtractNumbers(a, b) {
     let digit = a;
     let one = Number(digit);
     let two = Number(number);
-    /*switching two and one seemed to solve the problem of having negative values
-    in 'b'. The problem stems from the creation of 'b', where 'b' is formed from 
-    the value of the 'solution' variable*/
-    // console.log("a: " + one);
-    // console.log("b(two): " + two);
     return (two - one);
     
 }
@@ -85,7 +70,7 @@ function divideNumbers(a, b) {
     let one = Number(digit);
     let two = Number(number);
     if (one === 0) {
-        return "Cannot divide by zero"
+        return warning;
     }
     return (two / one);
     
@@ -101,6 +86,17 @@ function getNumbers() {
                 
 
             }
+            else if(result.innerHTML === warning) {
+                // arrayOperators.forEach(operator => operator.disabled = true);
+                result.innerHTML = number.innerHTML;
+                
+
+            }
+            else if(solution.length !== 0) {
+                result.innerHTML = number.innerHTML;
+
+
+            }
             else if(result.innerHTML !== "0") {
                 result.innerHTML += number.innerHTML;
             }
@@ -108,6 +104,9 @@ function getNumbers() {
             a = result.innerHTML;
             removeValue();
             computeValues();
+            /* Set solution blank so as to reset it after clicking equals and a new
+            number */
+            solution = "";
             
             // operate(a, b);
             // operateTwo(a, b);
@@ -136,7 +135,7 @@ function clearDisplay() {
         result.innerHTML = "0";
         up.innerHTML = "";
         values = "";
-        a = "";
+        a = "0";
         b = "";
         solution = "";
         // decimal.disabled = false;
@@ -156,7 +155,7 @@ function computeValues() {
         operator.addEventListener('click', function getOperator() {
             // a = result.innerHTML;
             b = a + " " + operator.innerHTML + " ";
-            
+            // console.log(a);
             if (a.length !== 0 && b.length !== 0) {
                 if(first === "+") {
                     if (first === "-") {
@@ -227,85 +226,33 @@ function computeValues() {
                     if(first === "+") {
                         b = "";
                         result.innerHTML = add;
+                        solution = result.innerHTML;
                     }
                     if(first === "x") {
                         b = "";
                         result.innerHTML = multiply;
+                        solution = result.innerHTML;
                     }
                     if(first === "/") {
                         b = "";
                         result.innerHTML = divide;
+                        solution = result.innerHTML;
                     }
                     if(first === "-") {
                         b = "";
                         result.innerHTML = subtract;
+                        solution = result.innerHTML;
                     }
                 }
                 
-                // console.log("solution: " + solution);
-                // console.log("first: " + first);
                 
                 
             }
-            // if(solution === "") {
-            //     // a = total;
-            //     b = a + " " + operator.innerHTML + " ";
-            //     // error could stem from here, examine
-            //     // console.log(a);
-                
-                
 
-            // }
-            // else if(operator.innerHTML === '=') {
-            //     if(first === '+') {
-            //         // up.innerHTML = b + " " + a + " " + "=";
-            //         result.innerHTML = addNumbers(a, b);
-            //     }
-            //     else if(first === '-') {
-            //         // up.innerHTML = b + " " + a + " " + "=";
-            //         result.innerHTML = subtractNumbers(a, b);
-            //         // solution = result.innerHTML;
-            //     }
-            //     else if(first === 'x') {
-            //         // up.innerHTML = b + " " + a + " " + "=";
-            //         result.innerHTML = multiplyNumbers(a, b);
-            //         // solution = result.innerHTML;
-            //     }
-            // }
-
-
-
-            /*else if(solution === "" ) {
-                b = total + " " + operator.innerHTML + " ";
-                // console.log("works");
-                
-
-            }*/
-            // else if (solution !== "") {
-            //     b = solution + " " + operator.innerHTML + " ";
-            //     // console.log("solution: " + solution);
-            //     // console.log("first: " + first);
-                
-                
-            // }
             
             
-            
-            // array.forEach(number => 
-            //     number.addEventListener('click', function getSecondValue(){
-            //         result.innerHTML = number.innerHTML;
-            //         a = result.innerHTML
-
-            //     })
-            // )
-            // if(operator.innerHTML === "+") {
-            //     getSolution(addNumbers, a);
-
-            // }
-            // attach the first number plus the operator to the div above 
-            // operate(a, b);
-            // /operateTwo(a, b);
             up.innerHTML = b;
+            removeValue();
             
             
 
@@ -330,8 +277,10 @@ function replaceResults() {
                 if(operator.innerHTML !== '=') {
                     values += number.innerHTML;
                     
+                    
 
                 }
+                
                 
                 // b += " " + values + " " + "=";
                  
@@ -358,10 +307,11 @@ function replaceResults() {
                 values = "";
                 result.innerHTML = values;
                 
+                
 
             }
             
-            
+            removeValue();
             
             
             
@@ -410,17 +360,51 @@ function addDecimal() {
         }
         
         
+        
+        
     })
 
 }
 
 function removeValue() {
+    let item = Array.from(result.innerHTML);
+    // console.log(a);
     remove.addEventListener('click', function() {
-        let row = Array.from(result.innerHTML);
-        let index = row.length - 1;
         // console.log(row);
-        row.slice(index);
-    })
+        // let output = result.innerHTML.slice(0);
+        if(b.length === 0 ) {
+            if(result.innerHTML !== "0") {
+                item.pop();
+                let output = item.join("");
+                result.innerHTML = output;
+                a = result.innerHTML;
+                
+                
+                
+
+            }
+        }
+        // else if(result.innerHTML === "") {
+        //     // console.log(row.length);
+        //     result.innerHTML = "0";
+
+        // }
+        else if (b.length !== 0) {
+            item.pop();
+            let output = item.join("");
+            result.innerHTML = output;
+            a = result.innerHTML;
+            // console.log(result.innerHTML)
+            
+            
+        }
+        // a = result.innerHTML;
+    
+        
+    });
+
+    
+    
 }
 
 // function operateTwo(a, b) {
@@ -488,6 +472,3 @@ calcValues();
 
 
 
-// console.log(a);
-
-// console.log(operate(multiplyNumbers, 5, 2));

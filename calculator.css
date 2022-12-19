@@ -7,18 +7,78 @@ html {
 }
 
 .container {
-    /* border: 1px solid black; 
+    border: 2px solid black; 
+    border-radius: 10px;
     margin: 0 auto;
-    height: 10em;
-    width: 25%; */
+    height: 25.6em;
+    width: 22em;
+    background-color: rgb(255, 255, 255);
 }
 
 #display {
-    height: 2em;
+    /* border-bottom: 1px; */
+    margin-top: 1em;
+    margin-right: 1em;
+    text-align: right;
+    height: 3em;
+    /* background-color: gray; */
+    font-size: large;
+    color: rgb(0, 0, 0);
+    
     
 }
 
 #up {
     font-size: smaller;
     /* margin-bottom: 0.5em; */
+}
+
+.utility {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+
+}
+
+.regular {
+    display: grid;
+    grid-template-columns: 5fr 5fr 5fr 5fr;
+    background-color: rgb(184, 181, 181);
+    /* grid-template-rows: 5fr 5fr 5fr 5fr; */
+}
+
+.number, #decimal, .operator {
+    display: inline-block;
+    margin: .2em .1em;
+    padding: 1.5em 2em;
+    background-color: rgb(31, 29, 29);
+    color: #fff;
+    
+
+}
+
+.number:hover, #decimal:hover, .operator:hover {
+    background-color: rgb(51, 49, 49);
+    
+    
+}
+
+#clear, #delete {
+    margin: 2px;
+    padding: 1.5em 2em;
+    color:rgb(255, 255, 255)
+    
+}
+
+#clear {
+    background-color: rgb(94, 19, 19);
+    /* color: #fff; */
+}
+
+#delete {
+    background-color: rgb(184, 181, 181);
+}
+
+.keys {
+    
 }

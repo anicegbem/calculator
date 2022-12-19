@@ -2,13 +2,11 @@ let numbers = document.getElementsByClassName('number');
 let array = Array.from(numbers);
 let result = document.getElementById('results');
 let clear = document.getElementById('clear');
-// result.textContent = "0"
 result.innerHTML = "0";
-let a = "0";
+let a = "";
 let operators = document.getElementsByClassName('operator');
 let arrayOperators = Array.from(operators);
 let b = "";
-// let equals = document.getElementById('equals');
 let up = document.getElementById('up');
 let values = "";
 let display = document.getElementById('display');
@@ -18,16 +16,10 @@ let warning = "Cannot divide by zero";
 let solution = "";
 
 
-// let solution = "";
-// let total = "";
-
-// result.textContent = "0";
-
 function addNumbers(a, b) {
     let value = b.split(' ');
     let number = value[0];
     let digit = a;
-    // console.log(digit);
     let one = Number(digit);
     let two = Number(number);
     let total = one + two;
@@ -38,10 +30,6 @@ function addNumbers(a, b) {
 function subtractNumbers(a, b) {
     let value = b.split(' ');
     let number = value[0];
-    // console.log("number: " + number);
-    // console.log(number);
-    // console.log("a: " + a);
-    // console.log("b: " + number);
     let digit = a;
     let one = Number(digit);
     let two = Number(number);
@@ -51,15 +39,10 @@ function subtractNumbers(a, b) {
 
 function multiplyNumbers(a, b) {
     let value = b.split(' ');
-    // console.log("value: " + value);
-    // console.log("number: " + value);
     let number = value[0]
     let digit = a;
     let one = Number(digit);
     let two = Number(number);
-    // console.log("one(a): " + one);
-    // console.log("two(b): " + two);
-    // console.log("number: " + number)
     return (one * two);
 }
 
@@ -87,7 +70,6 @@ function getNumbers() {
 
             }
             else if(result.innerHTML === warning) {
-                // arrayOperators.forEach(operator => operator.disabled = true);
                 result.innerHTML = number.innerHTML;
                 
 
@@ -108,8 +90,7 @@ function getNumbers() {
             number */
             solution = "";
             
-            // operate(a, b);
-            // operateTwo(a, b);
+            
             
 
             
@@ -135,11 +116,10 @@ function clearDisplay() {
         result.innerHTML = "0";
         up.innerHTML = "";
         values = "";
-        a = "0";
+        a = "";
         b = "";
         solution = "";
-        // decimal.disabled = false;
-        // display.innerHTML = "0";
+        
     })
 
 }
@@ -153,9 +133,7 @@ function computeValues() {
     let first = value[1];
     arrayOperators.forEach(operator => 
         operator.addEventListener('click', function getOperator() {
-            // a = result.innerHTML;
             b = a + " " + operator.innerHTML + " ";
-            // console.log(a);
             if (a.length !== 0 && b.length !== 0) {
                 if(first === "+") {
                     if (first === "-") {
@@ -281,25 +259,6 @@ function replaceResults() {
 
                 }
                 
-                
-                // b += " " + values + " " + "=";
-                 
-                
-                
-                
-                
-                
-    
-                // console.log(first.length);
-                // console.log(bArray[0]);
-                /*if(first.length < 2) {
-                    result.innerHTML = number.innerHTML;
-                }
-                else if (first.length >= 2) {
-                    result.innerHTML += number.innerHTML;
-                }*/
-
-                // result.innerHTML = a;
 
             }))
             // set value first to empty to prevent it from displaying on screen after clearing
@@ -332,24 +291,6 @@ function replaceResults() {
 
 }
 
-/*function addSecondValue(value) {
-    array.forEach(number => number.addEventListener('click', function() {
-        value += number.innerHTML;
-    }))
-}*/
-
-function calcValues() {
-    getNumbers();
-    clearDisplay();
-    replaceResults();
-    computeValues();
-    
-    
-    
-    
-    
-
-}
 
 function addDecimal() {
     decimal.addEventListener('click', function() {
@@ -358,6 +299,7 @@ function addDecimal() {
             result.innerHTML += decimal.innerHTML;
 
         }
+        removeValue();
         
         
         
@@ -370,8 +312,6 @@ function removeValue() {
     let item = Array.from(result.innerHTML);
     // console.log(a);
     remove.addEventListener('click', function() {
-        // console.log(row);
-        // let output = result.innerHTML.slice(0);
         if(b.length === 0 ) {
             if(result.innerHTML !== "0") {
                 item.pop();
@@ -384,11 +324,7 @@ function removeValue() {
 
             }
         }
-        // else if(result.innerHTML === "") {
-        //     // console.log(row.length);
-        //     result.innerHTML = "0";
-
-        // }
+        
         else if (b.length !== 0) {
             item.pop();
             let output = item.join("");
@@ -407,63 +343,23 @@ function removeValue() {
     
 }
 
-// function operateTwo(a, b) {
-//     // let array = b.split(' ');
-//     // let first = array[0];
-//     if(a.length !== 0 && b.length !== 0) {
-//         arrayOperators.forEach(operator => 
-//             operator.addEventListener('click', function getOperator() {
-//                 if(operator.innerHTML === '+') {
-//                     total = addNumbers(a, b);
-//                     // a = result.innerHTML;
-//                     console.log("total: " + total);
-//                     console.log("b: " + b);
-                    
-                    
-//                     // addValue(result.innerHTML);
-                    
-        
-        
-//                 }
-    
-//                 /*if(b.length !== 0 && result.innerHTML !== '') {
-//                     if(operator.innerHTML === '+') {
-//                         let total = addNumbers(result.innerHTML, b);
-//                         // b = total + " " + operator.innerHTML
-//                         console.log(total);
-                        
-//                         // addValue(result.innerHTML);
-                        
-            
-            
-//                     }
-    
-    
-                    
-//                 }*/
-    
-//                 b = total + " " + operator.innerHTML
-                
-    
-//             })
-//         )
+function disableOperators() {
+    if(result.innerHTML === warning) {
+        console.log("haba");
+        arrayOperators.forEach(operator => operator.disabled = true);
+    }
+}
 
-//     }
+
+function calcValues() {
+    getNumbers();
+    clearDisplay();
+    replaceResults();
+    computeValues();
+    disableOperators();
     
-//     // if(b.length !== 0 && result.innerHTML !== '') {
-        
-        
-
-//     // }
     
-
-// }
-
-// function addTwo() {
-
-// }
-
-// addNumbers(a, b);
+}
 
 
 calcValues();
